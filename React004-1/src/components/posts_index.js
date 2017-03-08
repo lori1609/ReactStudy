@@ -14,6 +14,19 @@ class PostsIndex extends Component {
     this.props.fetchPosts();
   }
 
+  renderPosts() {
+    return this.props.posts.map((post) => {
+      return (
+        <li className="list-group-item" key={post.id}>
+          <Link to={"posts/"+ post.id} >
+            <span className="pull-xs-right" >{post.categories}</span>
+            <strong>{post.title}</strong>
+          </Link>
+        </li>
+      );
+    });
+  }
+
   render() {
     return(
       <div>
@@ -22,7 +35,10 @@ class PostsIndex extends Component {
               Add a Post
             </Link>
         </div>
-        List of Blogs
+        <h3>Posts</h3>
+        <ul className="list-group" >
+          { this.renderPosts()}
+        </ul>
       </div>
     );
   }
@@ -36,4 +52,9 @@ class PostsIndex extends Component {
 //instead we pass the object of Action fetchPosts
 // export default connect(null, { fetchPosts: fetchPosts })(PostIndex);
 //because the same key of value of passed object fetchPosts, can do as below
-export default connect(null, { fetchPosts })(PostsIndex);
+
+function mapStateToProps(state) {
+  return { posts: state.posts.all };
+}
+
+export default connect(mapStateToProps, { fetchPosts })(PostsIndex);
