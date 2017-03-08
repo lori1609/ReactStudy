@@ -20,7 +20,7 @@ export function fetchPosts() {
 }
 
 export function createPost(props){
-  const request = axios.get(`${ROOT_URL}/posts${API_KEY}`, props);
+  const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, props);
   console.log("createPost action is called");
   return {
     type: CREATE_POST,
